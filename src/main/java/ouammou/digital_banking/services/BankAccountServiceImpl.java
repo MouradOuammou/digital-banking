@@ -8,11 +8,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ouammou.digital_banking.dtos.AccountHistoryDTO;
 import ouammou.digital_banking.dtos.AccountOperationDTO;
+import ouammou.digital_banking.dtos.BankAccountDTO;
 import ouammou.digital_banking.dtos.CustomerDTO;
-import ouammou.digital_banking.entites.AccountOperation;
-import ouammou.digital_banking.entites.BankAccount;
-import ouammou.digital_banking.entites.CurrentAccount;
-import ouammou.digital_banking.entites.Customer;
+import ouammou.digital_banking.entites.*;
+import ouammou.digital_banking.enums.OperationType;
+import ouammou.digital_banking.exceptions.BalanceNotSufficientException;
 import ouammou.digital_banking.exceptions.BankAccountNotFoundException;
 import ouammou.digital_banking.exceptions.CustomerNotFoundException;
 import ouammou.digital_banking.repositories.AccountOperationRepository;
@@ -95,7 +95,7 @@ public class BankAccountServiceImpl implements BankAccountService {
                 .orElseThrow(()->new BankAccountNotFoundException("BankAccount not found"));
         if(bankAccount instanceof SavingAccount){
             SavingAccount savingAccount= (SavingAccount) bankAccount;
-            return dtoMapper.fromSavingBankAccount(savingAccount);
+            return dtoMapper.fromSavinfgBankAccount(savingAccount);
         } else {
             CurrentAccount currentAccount= (CurrentAccount) bankAccount;
             return dtoMapper.fromCurrentBankAccount(currentAccount);

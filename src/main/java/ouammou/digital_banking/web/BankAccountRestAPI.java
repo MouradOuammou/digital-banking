@@ -1,10 +1,7 @@
 package ouammou.digital_banking.web;
 
 import org.springframework.web.bind.annotation.*;
-import ouammou.digital_banking.dtos.AccountHistoryDTO;
-import ouammou.digital_banking.dtos.AccountOperationDTO;
-import ouammou.digital_banking.dtos.BankAccountDTO;
-import ouammou.digital_banking.dtos.DebitDTO;
+import ouammou.digital_banking.dtos.*;
 import ouammou.digital_banking.exceptions.BalanceNotSufficientException;
 import ouammou.digital_banking.exceptions.BankAccountNotFoundException;
 import ouammou.digital_banking.services.BankAccountService;
@@ -42,5 +39,17 @@ public class BankAccountRestAPI {
     public DebitDTO debit(@RequestBody DebitDTO debitDTO) throws BankAccountNotFoundException, BalanceNotSufficientException {
         this.bankAccountService.debit(debitDTO.getAccountId(),debitDTO.getAmount(),debitDTO.getDescription());
         return debitDTO;
+    }
+    @PostMapping("/accounts/credit")
+    public CreditDTO credit(@RequestBody CreditDTO creditDTO) throws BankAccountNotFoundException {
+        this.bankAccountService.credit(creditDTO.getAccountId(),creditDTO.getAmount(),creditDTO.getDescription());
+        return creditDTO;
+    }
+    @PostMapping("/accounts/transfer")
+    public void transfer(@RequestBody TransferRequestDTO transferRequestDTO) throws BankAccountNotFoundException, BalanceNotSufficientException {
+        this.bankAccountService.transfer(
+                transferRequestDTO.getAccountSource(),
+                transferRequestDTO.getAccountDestination(),
+                transferRequestDTO.getAmount());
     }
 }
