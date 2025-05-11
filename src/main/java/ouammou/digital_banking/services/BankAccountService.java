@@ -1,5 +1,7 @@
 package ouammou.digital_banking.services;
 
+import ouammou.digital_banking.dtos.BankAccountDTO;
+import ouammou.digital_banking.dtos.CurrentBankAccountDTO;
 import ouammou.digital_banking.dtos.CustomerDTO;
 import ouammou.digital_banking.entites.Customer;
 import ouammou.digital_banking.exceptions.BalanceNotSufficientException;
