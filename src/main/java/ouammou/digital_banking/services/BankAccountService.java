@@ -2,6 +2,8 @@ package ouammou.digital_banking.services;
 
 import ouammou.digital_banking.dtos.CustomerDTO;
 import ouammou.digital_banking.entites.Customer;
+import ouammou.digital_banking.exceptions.BalanceNotSufficientException;
+import ouammou.digital_banking.exceptions.BankAccountNotFoundException;
 import ouammou.digital_banking.exceptions.CustomerNotFoundException;
 
 import java.util.List;
