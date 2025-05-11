@@ -1,16 +1,32 @@
 package ouammou.digital_banking.services;
 
+import ouammou.digital_banking.dtos.CustomerDTO;
 import ouammou.digital_banking.entites.Customer;
 import ouammou.digital_banking.exceptions.CustomerNotFoundException;
 
 import java.util.List;
 
 public interface BankAccountService {
-    Customer saveCustomer(Customer customer);
-    BankAccountService saveBankAccount(double initialBalance , String type, Long CustomerId) throws CustomerNotFoundException;
-    List<Customer> listCustomers();
-    BankAccountService getBankAccount(String accoutId);
-    void debit(String accoutId, double amount , String description);
-    void credit(String accoutId, double amount, String description);
-    void transfer(String accountIdSource, String accoutIdDestination, double amount);
+    CustomerDTO saveCustomer(CustomerDTO customerDTO);
+    CurrentBankAccountDTO saveCurrentBankAccount(double initialBalance, double overDraft, Long customerId) throws CustomerNotFoundException;
+    SavingBankAccountDTO saveSavingBankAccount(double initialBalance, double interestRate, Long customerId) throws CustomerNotFoundException;
+    List<CustomerDTO> listCustomers();
+    BankAccountDTO getBankAccount(String accountId) throws BankAccountNotFoundException;
+    void debit(String accountId, double amount, String description) throws BankAccountNotFoundException, BalanceNotSufficientException;
+    void credit(String accountId, double amount, String description) throws BankAccountNotFoundException;
+    void transfer(String accountIdSource, String accountIdDestination, double amount) throws BankAccountNotFoundException, BalanceNotSufficientException;
+
+    List<BankAccountDTO> bankAccountList();
+
+    CustomerDTO getCustomer(Long customerId) throws CustomerNotFoundException;
+
+    CustomerDTO updateCustomer(CustomerDTO customerDTO);
+
+    void deleteCustomer(Long customerId);
+
+    List<AccountOperationDTO> accountHistory(String accountId);
+
+    AccountHistoryDTO getAccountHistory(String accountId, int page, int size) throws BankAccountNotFoundException;
+
+    List<CustomerDTO> searchCustomers(String keyword);
 }
