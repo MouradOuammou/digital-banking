@@ -19,7 +19,7 @@ import java.util.UUID;
 @Transactional
 @AllArgsConstructor
 @Slf4j //  qui permet de générer automatiquement un logger (journaliseur)
-public class BankAccountServiceImpl implements BankAccount {
+public class BankAccountServiceImpl implements BankAccountService {
     private CustomRepository customerRepository;
     private BankAccountRepository bankAccountRepository;
     private AccountOperationRepository accountOperationRepository;
@@ -33,7 +33,7 @@ public class BankAccountServiceImpl implements BankAccount {
     }
 
     @Override
-    public BankAccount saveBankAccount(double initialBalance, String type, Long customerId)  {
+    public BankAccountService saveBankAccount(double initialBalance, String type, Long customerId)  {
         Customer customer=customerRepository.findById(customerId).orElse(null);
         if(customer==null)
             throw new CustomerNotFoundException("Customer not found");
@@ -52,7 +52,7 @@ public class BankAccountServiceImpl implements BankAccount {
     }
 
     @Override
-    public BankAccount getBankAccount(String accoutId) {
+    public BankAccountService getBankAccount(String accoutId) {
         return null;
     }
 

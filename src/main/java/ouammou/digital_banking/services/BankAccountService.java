@@ -5,11 +5,11 @@ import ouammou.digital_banking.exceptions.CustomerNotFoundException;
 
 import java.util.List;
 
-public interface BankAccount {
+public interface BankAccountService {
     Customer saveCustomer(Customer customer);
-    BankAccount saveBankAccount(double initialBalance , String type,Long CustomerId) throws CustomerNotFoundException;
+    BankAccountService saveBankAccount(double initialBalance , String type, Long CustomerId) throws CustomerNotFoundException;
     List<Customer> listCustomers();
-    BankAccount getBankAccount(String accoutId);
+    BankAccountService getBankAccount(String accoutId);
     void debit(String accoutId, double amount , String description);
     void credit(String accoutId, double amount, String description);
     void transfer(String accountIdSource, String accoutIdDestination, double amount);
