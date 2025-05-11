@@ -6,18 +6,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import ouammou.digital_banking.dtos.AccountHistoryDTO;
-import ouammou.digital_banking.dtos.AccountOperationDTO;
-import ouammou.digital_banking.dtos.BankAccountDTO;
-import ouammou.digital_banking.dtos.CustomerDTO;
+import ouammou.digital_banking.dtos.*;
 import ouammou.digital_banking.entites.*;
 import ouammou.digital_banking.enums.OperationType;
 import ouammou.digital_banking.exceptions.BalanceNotSufficientException;
 import ouammou.digital_banking.exceptions.BankAccountNotFoundException;
 import ouammou.digital_banking.exceptions.CustomerNotFoundException;
+import ouammou.digital_banking.mappers.BankAccountMapperImpl;
 import ouammou.digital_banking.repositories.AccountOperationRepository;
 import ouammou.digital_banking.repositories.BankAccountRepository;
-import ouammou.digital_banking.repositories.CustomRepository;
+import ouammou.digital_banking.repositories.CustomerRepository;
 
 import java.util.Date;
 import java.util.List;
@@ -78,14 +76,6 @@ public class BankAccountServiceImpl implements BankAccountService {
         List<CustomerDTO> customerDTOS = customers.stream()
                 .map(customer -> dtoMapper.fromCustomer(customer))
                 .collect(Collectors.toList());
-        /*
-        List<CustomerDTO> customerDTOS=new ArrayList<>();
-        for (Customer customer:customers){
-            CustomerDTO customerDTO=dtoMapper.fromCustomer(customer);
-            customerDTOS.add(customerDTO);
-        }
-        *
-         */
         return customerDTOS;
     }
 

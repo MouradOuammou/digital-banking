@@ -14,7 +14,7 @@ import ouammou.digital_banking.enums.OperationType;
 import ouammou.digital_banking.exceptions.CustomerNotFoundException;
 import ouammou.digital_banking.repositories.AccountOperationRepository;
 import ouammou.digital_banking.repositories.BankAccountRepository;
-import ouammou.digital_banking.repositories.CustomRepository;
+import ouammou.digital_banking.repositories.CustomerRepository;
 import ouammou.digital_banking.services.BankAccountService;
 
 import java.util.Date;
@@ -62,7 +62,7 @@ public class DigitalBankingApplication {
         };
     }
     //@Bean
-    CommandLineRunner start(CustomRepository customerRepository,
+    CommandLineRunner start(CustomerRepository customerRepository,
                             BankAccountRepository bankAccountRepository,
                             AccountOperationRepository accountOperationRepository){
         return args -> {

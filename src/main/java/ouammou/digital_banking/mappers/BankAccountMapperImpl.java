@@ -2,9 +2,8 @@ package ouammou.digital_banking.mappers;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import ouammou.digital_banking.dtos.CurrentBankAccountDTO;
-import ouammou.digital_banking.dtos.CustomerDTO;
-import ouammou.digital_banking.dtos.SavingBankAccountDTO;
+import ouammou.digital_banking.dtos.*;
+import ouammou.digital_banking.entites.AccountOperation;
 import ouammou.digital_banking.entites.CurrentAccount;
 import ouammou.digital_banking.entites.Customer;
 import ouammou.digital_banking.entites.SavingAccount;
@@ -22,6 +21,7 @@ public class BankAccountMapperImpl {
         BeanUtils.copyProperties(customerDTO,customer);
         return  customer;
     }
+
     public SavingBankAccountDTO fromSavingBankAccount(SavingAccount savingAccount){
         SavingBankAccountDTO savingBankAccountDTO=new SavingBankAccountDTO();
         BeanUtils.copyProperties(savingAccount,savingBankAccountDTO);
@@ -36,6 +36,7 @@ public class BankAccountMapperImpl {
         savingAccount.setCustomer(fromCustomerDTO(savingBankAccountDTO.getCustomerDTO()));
         return savingAccount;
     }
+
     public CurrentBankAccountDTO fromCurrentBankAccount(CurrentAccount currentAccount){
         CurrentBankAccountDTO currentBankAccountDTO=new CurrentBankAccountDTO();
         BeanUtils.copyProperties(currentAccount,currentBankAccountDTO);
@@ -49,5 +50,19 @@ public class BankAccountMapperImpl {
         BeanUtils.copyProperties(currentBankAccountDTO,currentAccount);
         currentAccount.setCustomer(fromCustomerDTO(currentBankAccountDTO.getCustomerDTO()));
         return currentAccount;
+    }
+
+    public AccountOperationDTO fromAccountOperation(AccountOperation accountOperation){
+        AccountOperationDTO accountOperationDTO=new AccountOperationDTO();
+        BeanUtils.copyProperties(accountOperation,accountOperationDTO);
+        return accountOperationDTO;
+    }
+
+    public BankAccountDTO fromSavinfgBankAccount(SavingAccount savingAccount) {
+        BankAccountDTO bankAccountDTO = new BankAccountDTO();
+        if (savingAccount != null) {
+            bankAccountDTO.setType(savingAccount.getClass().getSimpleName());
+        }
+        return bankAccountDTO;
     }
 }
