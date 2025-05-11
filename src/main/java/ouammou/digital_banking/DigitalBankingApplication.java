@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import ouammou.digital_banking.entites.*;
 import ouammou.digital_banking.enums.AccountStatus;
+import ouammou.digital_banking.enums.OperationType;
 import ouammou.digital_banking.repositories.AccountOperationRepository;
 import ouammou.digital_banking.repositories.BankAccountRepository;
 import ouammou.digital_banking.repositories.CustomRepository;
@@ -47,6 +48,16 @@ public class DigitalBankingApplication {
                 savingAccount.setCustomer(customer);
                 savingAccount.setInterestRate(5.8);
                 bankAccountRepository.save(savingAccount);
+            });
+            bankAccountRepository.findAll().forEach(bankAccount -> {
+                for (int i =0 ; i<10 ;i++){
+                    AccountOperation accountOperation = new AccountOperation();
+                    accountOperation.setOperationDate(new Date());
+                    accountOperation.setAmount(Math.random() * 100);
+                    accountOperation.setType(Math.random() > 0.5 ? OperationType.DEBIT : OperationType.CREDIT);
+                    accountOperation.setBankAccount(bankAccount);
+                    accountOperationRepository.save(accountOperation);
+                }
             });
         };
     }
