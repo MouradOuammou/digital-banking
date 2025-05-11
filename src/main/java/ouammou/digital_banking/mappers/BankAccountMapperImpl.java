@@ -3,7 +3,10 @@ package ouammou.digital_banking.mappers;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import ouammou.digital_banking.dtos.CustomerDTO;
+import ouammou.digital_banking.dtos.SavingBankAccountDTO;
 import ouammou.digital_banking.entites.Customer;
+import ouammou.digital_banking.entites.SavingAccount;
+
 //MapStruct Generer ce code technique
 @Service
 public class BankAccountMapperImpl {
@@ -16,5 +19,19 @@ public class BankAccountMapperImpl {
         Customer customer=new Customer();
         BeanUtils.copyProperties(customerDTO,customer);
         return  customer;
+    }
+    public SavingBankAccountDTO fromSavingBankAccount(SavingAccount savingAccount){
+        SavingBankAccountDTO savingBankAccountDTO=new SavingBankAccountDTO();
+        BeanUtils.copyProperties(savingAccount,savingBankAccountDTO);
+        savingBankAccountDTO.setCustomerDTO(fromCustomer(savingAccount.getCustomer()));
+        savingBankAccountDTO.setType(savingAccount.getClass().getSimpleName());
+        return savingBankAccountDTO;
+    }
+
+    public SavingAccount fromSavingBankAccountDTO(SavingBankAccountDTO savingBankAccountDTO){
+        SavingAccount savingAccount=new SavingAccount();
+        BeanUtils.copyProperties(savingBankAccountDTO,savingAccount);
+        savingAccount.setCustomer(fromCustomerDTO(savingBankAccountDTO.getCustomerDTO()));
+        return savingAccount;
     }
 }
