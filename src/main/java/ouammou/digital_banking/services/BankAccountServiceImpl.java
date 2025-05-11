@@ -39,7 +39,6 @@ public class BankAccountServiceImpl implements BankAccountService {
         Customer savedCustomer = customerRepository.save(customer);
         return dtoMapper.fromCustomer(savedCustomer);
     }
-
     @Override
     public CurrentBankAccountDTO saveCurrentBankAccount(double initialBalance, double overDraft, Long customerId) throws CustomerNotFoundException {
         Customer customer=customerRepository.findById(customerId).orElse(null);
@@ -54,7 +53,6 @@ public class BankAccountServiceImpl implements BankAccountService {
         CurrentAccount savedBankAccount = bankAccountRepository.save(currentAccount);
         return dtoMapper.fromCurrentBankAccount(savedBankAccount);
     }
-
     @Override
     public SavingBankAccountDTO saveSavingBankAccount(double initialBalance, double interestRate, Long customerId) throws CustomerNotFoundException {
         Customer customer=customerRepository.findById(customerId).orElse(null);
@@ -78,7 +76,6 @@ public class BankAccountServiceImpl implements BankAccountService {
                 .collect(Collectors.toList());
         return customerDTOS;
     }
-
     @Override
     public BankAccountDTO getBankAccount(String accountId) throws BankAccountNotFoundException {
         BankAccount bankAccount=bankAccountRepository.findById(accountId)
