@@ -4,6 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import ouammou.digital_banking.dtos.BankAccountDTO;
 import ouammou.digital_banking.dtos.CurrentBankAccountDTO;
 import ouammou.digital_banking.dtos.CustomerDTO;
@@ -15,6 +16,7 @@ import ouammou.digital_banking.exceptions.CustomerNotFoundException;
 import ouammou.digital_banking.repositories.AccountOperationRepository;
 import ouammou.digital_banking.repositories.BankAccountRepository;
 import ouammou.digital_banking.repositories.CustomerRepository;
+import ouammou.digital_banking.repositories.UserRepository;
 import ouammou.digital_banking.services.BankAccountService;
 
 import java.util.Date;
@@ -29,9 +31,29 @@ public class DigitalBankingApplication {
         SpringApplication.run(DigitalBankingApplication.class, args);
     }
     @Bean
+    CommandLineRunner initUsers(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        return args -> {
+            if(userRepository.count() == 0) { // éviter les doublons
+                User admin = new User();
+                admin.setUsername("mourada");
+                admin.setPassword(passwordEncoder.encode("123"));
+                admin.setRoles("ROLE_ADMIN,ROLE_USER");
+                admin.setEnabled(true);
+                userRepository.save(admin);
+
+                User user = new User();
+                user.setUsername("mourad");
+                user.setPassword(passwordEncoder.encode("123"));
+                user.setRoles("ROLE_USER");
+                user.setEnabled(true);
+                userRepository.save(user);
+            }
+        };
+    }
+    @Bean
     CommandLineRunner commandLineRunner(BankAccountService bankAccountService){
         return args -> {
-            Stream.of("Mourad","Hicham","Mohamed","Walid").forEach(name->{
+            Stream.of("Mourad","Hicham","Mohamed","Walid","reda").forEach(name->{
                 CustomerDTO customer=new CustomerDTO();
                     customer.setName(name);
                 customer.setEmail(name+"@gmail.com");
