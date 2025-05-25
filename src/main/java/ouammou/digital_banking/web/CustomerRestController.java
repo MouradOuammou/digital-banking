@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @AllArgsConstructor
+@CrossOrigin("*")
 public class CustomerRestController {
     private BankAccountService bankAccountService;
     @GetMapping("/customers")

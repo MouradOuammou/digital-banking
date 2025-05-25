@@ -9,6 +9,7 @@ import ouammou.digital_banking.services.BankAccountService;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 public class BankAccountRestAPI {
     private BankAccountService bankAccountService;
 
