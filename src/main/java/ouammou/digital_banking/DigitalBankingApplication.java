@@ -33,7 +33,7 @@ public class DigitalBankingApplication {
         return args -> {
             Stream.of("Mourad","Hicham","Mohamed","Walid").forEach(name->{
                 CustomerDTO customer=new CustomerDTO();
-                customer.setName(name);
+                    customer.setName(name);
                 customer.setEmail(name+"@gmail.com");
                 bankAccountService.saveCustomer(customer);
             });
